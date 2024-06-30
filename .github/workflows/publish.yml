@@ -1,0 +1,54 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      versionType:
+        description: "Version type (patch or minor)"
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.18
+          check-latest: true
+
+      - name: Update npm
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Bump version and commit
+        run: |
+          git config --global user.email "dev@mynth.ai"
+          git config --global user.name "Mynth Publisher"
+          npm version ${{ github.event.inputs.versionType }} -m "chore(release): bump to %s version"
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish to npm
+        run: |
+          echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" >> ~/.npmrc
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Push to git repo
+        run: git push --follow-tags

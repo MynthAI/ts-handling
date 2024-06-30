@@ -1,0 +1,7 @@
+*.ts
+!*.d.ts
+.eslint*
+.git*
+.prettier*
+tsconfig.json
+tests/
