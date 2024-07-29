@@ -58,6 +58,10 @@ const Err = <E>(error: E): ErrorType<E> => {
   };
 };
 
+function isProblem<T>(result: T | Problem<string>): result is Problem<string> {
+  return result instanceof Problem;
+}
+
 type ExtractedResult<T> = { ok: true; data: T } | { ok: false };
 type Success<T> = T extends { ok: true; data: infer D } ? D : never;
 
@@ -73,6 +77,7 @@ export {
   ErrorType,
   ExtractAsyncData,
   ExtractData,
+  isProblem,
   Ok,
   OkType,
   Problem,
