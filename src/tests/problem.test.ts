@@ -15,3 +15,11 @@ test("isProblem is a problem", (t) => {
   invariant(isProblem(result));
   t.is(result.error, "this is a problem");
 });
+
+test("isProblem value must be unwrapped", (t) => {
+  const result = mayFail(() => ["not a problem"]);
+  // @ts-expect-error must call .unwrap() first
+  invariant(!isProblem(result));
+  invariant(!isProblem(result.unwrap()));
+  t.pass();
+});
