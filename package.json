@@ -1,6 +1,6 @@
 {
   "name": "ts-handling",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Error handling for TypeScript applications",
   "repository": {
     "type": "git",
