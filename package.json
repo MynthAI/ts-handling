@@ -9,7 +9,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "engines": {
-    "node": ">=18.18 <=21"
+    "node": ">=18.18 <23"
   },
   "type": "module",
   "scripts": {
