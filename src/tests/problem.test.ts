@@ -5,7 +5,7 @@ import { expect, test } from "vitest";
 test("isProblem isn't problem", () => {
   const result = mayFail(() => ["not a problem"]).unwrap();
   invariant(!isProblem(result));
-  expect(result).toBe(["not a problem"]);
+  expect(result).toStrictEqual(["not a problem"]);
 });
 
 test("isProblem is a problem", () => {
