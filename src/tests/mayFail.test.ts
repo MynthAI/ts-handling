@@ -1,28 +1,28 @@
-import test from "ava";
 import invariant from "tests/invariant";
 import { mayFail } from "ts-handling";
+import { expect, test } from "vitest";
 
-test("can fail", (t) => {
+test("can fail", () => {
   const result = mayFail(() => {
     throw new Error("Error");
   });
 
   invariant(!result.ok);
-  t.is(result.error, "Error");
+  expect(result.error).toBe("Error");
 });
 
-test("can fail raw", (t) => {
+test("can fail raw", () => {
   const result = mayFail(() => {
     throw new Error("Error");
   }, true);
 
   invariant(!result.ok);
-  t.true(result.error.exception instanceof Error);
+  expect(result.error.exception instanceof Error).toBe(true);
 });
 
-test("can succeed", (t) => {
+test("can succeed", () => {
   const result = mayFail(() => "success");
 
   invariant(result.ok);
-  t.is(result.data, "success");
+  expect(result.data).toBe("success");
 });
