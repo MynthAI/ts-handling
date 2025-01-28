@@ -2,14 +2,14 @@
   "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
-    "plugin:ava/recommended",
+    "plugin:vitest/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
     "prettier"
   ],
-  "plugins": ["ava", "import", "@typescript-eslint"],
+  "plugins": ["vitest", "import", "@typescript-eslint"],
   "rules": {
     "padding-line-between-statements": [
       "error",
