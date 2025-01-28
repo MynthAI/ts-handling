@@ -1,15 +1,15 @@
-import test from "ava";
 import { Err, Ok, Result } from "ts-handling";
+import { expect, test } from "vitest";
 
 const run = (succeed: boolean): Result<void, string> => {
   return succeed ? Ok() : Err("error");
 };
 
-test("can use Ok() without params", (t) => {
-  t.false(run(false).ok);
-  t.true(run(true).ok);
+test("can use Ok() without params", () => {
+  expect(run(false).ok).toBe(false);
+  expect(run(true).ok).toBe(true);
 });
 
-test("can call Ok(undefined)", (t) => {
-  t.true(Ok(undefined).ok);
+test("can call Ok(undefined)", () => {
+  expect(Ok(undefined).ok).toBe(true);
 });

@@ -1,6 +1,6 @@
-import test from "ava";
 import invariant from "tests/invariant";
 import { Err, ExtractAsyncData, ExtractData, Ok } from "ts-handling";
+import { expect, test } from "vitest";
 
 const myAsyncFunc = async () => {
   if (1 / 1 != 1) return Err("Math has failed us");
@@ -33,26 +33,26 @@ type MyAsyncFuncData = ExtractAsyncData<typeof myAsyncFunc>;
 type MyFuncData = ExtractData<typeof myFunc>;
 type MyFuncWithParamsData = ExtractData<typeof myFuncWithParams>;
 
-test("can extract data type", (t) => {
+test("can extract data type", () => {
   const result = myFunc();
   invariant(result.ok);
   const data: MyFuncData = result.data;
-  t.is(data.life, "is good");
-  t.is(data.math, "is correct");
+  expect(data.life).toBe("is good");
+  expect(data.math).toBe("is correct");
 });
 
-test("can extract async data type", async (t) => {
+test("can extract async data type", async () => {
   const result = await myAsyncFunc();
   invariant(result.ok);
   const data: MyAsyncFuncData = result.data;
-  t.is(data.life, "is good");
-  t.is(data.math, "is correct");
+  expect(data.life).toBe("is good");
+  expect(data.math).toBe("is correct");
 });
 
-test("can extract data type with params", (t) => {
+test("can extract data type with params", () => {
   const result = myFuncWithParams(3, "3");
   invariant(result.ok);
   const data: MyFuncWithParamsData = result.data;
-  t.is(data.life, "is good");
-  t.is(data.math, "is correct");
+  expect(data.life).toBe("is good");
+  expect(data.math).toBe("is correct");
 });
