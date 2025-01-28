@@ -16,7 +16,7 @@
     "build": "rm -rf ./dist && npx tsc",
     "prettier": "npx prettier -w '**/*.{js,jsx,ts,tsx,json,yml.j2,yml,yaml,.*}'",
     "lint": "concurrently \"npx prettier --check '**/*.{js,jsx,ts,tsx,json,yml.j2,yml,yaml,.*}'\" \"npx eslint . --max-warnings=0\"",
-    "test": "npx ava"
+    "test": "npx vitest --run"
   },
   "dependencies": {
     "flatted": "^3.3.1"
@@ -26,27 +26,16 @@
     "@types/node": "^20.3.2",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.7.5",
-    "ava": "^6.1.2",
     "concurrently": "^8.2.0",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-node": "^0.3.9",
-    "eslint-plugin-ava": "^14.0.0",
     "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-vitest": "^0.2.0",
     "prettier": "^2.8.8",
-    "tsx": "^4.9.3"
-  },
-  "ava": {
-    "files": [
-      "src/tests/**/*.test.ts"
-    ],
-    "extensions": {
-      "ts": "module"
-    },
-    "nodeArguments": [
-      "--loader=tsx",
-      "--no-warnings"
-    ]
+    "tsx": "^4.9.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.0.4"
   },
   "prettier": {
     "overrides": [
