@@ -60,9 +60,9 @@ const Err = <E>(error: E): ErrorType<E> => {
 
 type Not<T, U> = T extends U ? never : T;
 
-function isProblem<T>(
-  result: Not<T, Result<unknown, unknown>> | Problem<string>
-): result is Problem<string> {
+function isProblem<T, E = string>(
+  result: Not<T, Result<unknown, unknown>> | Problem<E>
+): result is Problem<E> {
   return result instanceof Problem;
 }
 
