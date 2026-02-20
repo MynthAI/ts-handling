@@ -2,7 +2,7 @@ import { stringify } from "flatted";
 
 type CaughtError = { message: string; exception: unknown };
 
-const toString = (item: unknown): string => {
+const asString = (item: unknown): string => {
   if (item === undefined) return "undefined";
   if (item === null) return "null";
 
@@ -30,9 +30,9 @@ const toString = (item: unknown): string => {
 };
 
 const toCaught = (item: unknown): CaughtError => ({
-  message: toString(item),
+  message: asString(item),
   exception: item,
 });
 
 export default toCaught;
-export { CaughtError, toString };
+export { CaughtError, asString };
