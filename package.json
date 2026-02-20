@@ -6,10 +6,11 @@
     "type": "git",
     "url": "git+https://github.com/MynthAI/ts-handling.git"
   },
+  "packageManager": "pnpm@10.29.3",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "engines": {
-    "node": ">=18.18 <23"
+    "node": ">=20 <25"
   },
   "type": "module",
   "scripts": {
