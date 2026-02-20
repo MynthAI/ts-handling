@@ -11,6 +11,10 @@ on:
           - patch
           - minor
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -18,21 +22,20 @@ jobs:
       contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6.0.2
         with:
           ssh-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6.2.0
         with:
-          node-version: 22
-          check-latest: true
+          node-version: 24
+          registry-url: https://registry.npmjs.org
 
-      - name: Update npm
-        run: npm install -g npm@latest
+      - uses: pnpm/action-setup@v4.2.0
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Bump version and commit
         run: |
@@ -41,14 +44,10 @@ jobs:
           npm version ${{ github.event.inputs.versionType }} -m "chore(release): bump to %s version"
 
       - name: Build
-        run: npm run build
+        run: pnpm build
 
       - name: Publish to npm
-        run: |
-          echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" >> ~/.npmrc
-          npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
 
       - name: Push to git repo
         run: git push --follow-tags
