@@ -2,9 +2,14 @@
   "name": "ts-handling",
   "version": "0.2.5",
   "description": "Error handling for TypeScript applications",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "Mynth",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MynthAI/ts-handling.git"
+    "url": "https://github.com/MynthAI/ts-handling.git"
   },
   "files": ["dist"],
   "packageManager": "pnpm@10.30.1",
