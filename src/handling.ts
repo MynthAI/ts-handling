@@ -54,17 +54,18 @@ const Err = <E>(error: E): ErrorType<E> => ({
 
 type Not<T, U> = T extends U ? never : T;
 
-export const isProblem = <T, E = string>(
+const isProblem = <T, E = string>(
   result: Not<T, Result<unknown, unknown>> | Problem<E>,
 ): result is Problem<E> => result instanceof Problem;
 
 type ExtractedResult<T> = { ok: true; data: T } | { ok: false };
 type Success<T> = T extends { ok: true; data: infer D } ? D : never;
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// biome-ignore lint/suspicious/noExplicitAny: ok
 type ExtractData<F extends (...args: any[]) => ExtractedResult<unknown>> =
   Success<ReturnType<F>>;
 type ExtractAsyncData<
+  // biome-ignore lint/suspicious/noExplicitAny: ok
   F extends (...args: any[]) => Promise<ExtractedResult<unknown>>,
 > = Success<Awaited<ReturnType<F>>>;
 

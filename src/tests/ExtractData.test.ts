@@ -3,6 +3,7 @@ import { Err, ExtractAsyncData, ExtractData, Ok } from "ts-handling";
 import { expect, test } from "vitest";
 
 const myAsyncFunc = async () => {
+  // biome-ignore lint/correctness/noConstantCondition: test
   if (1 / 1 != 1) return Err("Math has failed us");
 
   return Ok({
@@ -12,6 +13,7 @@ const myAsyncFunc = async () => {
 };
 
 const myFunc = () => {
+  // biome-ignore lint/correctness/noConstantCondition: test
   if (2 / 2 != 1) return Err("Math has failed us");
 
   return Ok({
