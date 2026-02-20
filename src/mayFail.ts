@@ -5,7 +5,7 @@ function mayFail<T>(func: () => T, raw: true): Result<T, CaughtError>;
 function mayFail<T>(func: () => T): Result<T, string>;
 function mayFail<T>(
   func: () => T,
-  raw: boolean = false
+  raw: boolean = false,
 ): Result<T, string> | Result<T, CaughtError> {
   try {
     return Ok(func());
@@ -17,14 +17,14 @@ function mayFail<T>(
 
 function mayFailAsync<T>(
   func: () => Promise<T>,
-  raw: true
+  raw: true,
 ): Promise<Result<Awaited<T>, CaughtError>>;
 function mayFailAsync<T>(
-  func: () => Promise<T>
+  func: () => Promise<T>,
 ): Promise<Result<Awaited<T>, string>>;
 async function mayFailAsync<T>(
   func: () => Promise<T>,
-  raw: boolean = false
+  raw: boolean = false,
 ): Promise<Result<Awaited<T>, string> | Result<Awaited<T>, CaughtError>> {
   try {
     return Ok(await func());

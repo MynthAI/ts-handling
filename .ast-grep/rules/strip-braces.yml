@@ -1,0 +1,106 @@
+id: drop-if-single-stmt-braces
+language: TypeScript
+rule:
+  all:
+    - pattern: |
+        if ($COND) {
+          $STMT
+        }
+    - not:
+        pattern: |
+          if ($COND) {
+            $STMT
+          } else $ALT
+fix: |
+  if ($COND)
+    $STMT
+---
+id: inline-if-then-keep-else-braces
+language: TypeScript
+rule:
+  pattern: |
+    if ($COND) {
+      $THEN
+    } else {
+      $ELSE1
+      $ELSE2
+      $$$ELSE_REST
+    }
+fix: |
+  if ($COND) $THEN
+  else {
+    $ELSE1
+    $ELSE2
+    $$$ELSE_REST
+  }
+---
+id: drop-if-else-single-stmt-braces
+language: TypeScript
+rule:
+  pattern: |
+    if ($COND) {
+      $THEN
+    } else {
+      $ELSE
+    }
+fix: |
+  if ($COND)
+    $THEN
+  else
+    $ELSE
+---
+id: drop-while-single-stmt-braces
+language: TypeScript
+rule:
+  pattern: |
+    while ($COND) {
+      $STMT
+    }
+fix: |
+  while ($COND)
+    $STMT
+---
+id: drop-for-single-stmt-braces
+language: TypeScript
+rule:
+  pattern: |
+    for ($INIT; $COND; $UPDATE) {
+      $STMT
+    }
+fix: |
+  for ($INIT; $COND; $UPDATE)
+    $STMT
+---
+id: drop-for-of-single-stmt-braces
+language: TypeScript
+rule:
+  pattern: |
+    for ($LEFT of $RIGHT) {
+      $STMT
+    }
+fix: |
+  for ($LEFT of $RIGHT)
+    $STMT
+---
+id: drop-for-in-single-stmt-braces
+language: TypeScript
+rule:
+  pattern: |
+    for ($LEFT in $RIGHT) {
+      $STMT
+    }
+fix: |
+  for ($LEFT in $RIGHT)
+    $STMT
+---
+id: drop-do-while-single-stmt-braces
+language: TypeScript
+rule:
+  pattern: |
+    do {
+      $STMT
+    } while ($COND);
+fix: |
+  do
+    $STMT
+  while ($COND);

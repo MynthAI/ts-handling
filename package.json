@@ -6,45 +6,43 @@
     "type": "git",
     "url": "git+https://github.com/MynthAI/ts-handling.git"
   },
+  "packageManager": "pnpm@10.30.1",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "engines": {
-    "node": ">=18.18 <23"
+    "node": ">=20 <25"
   },
   "type": "module",
   "scripts": {
-    "build": "rm -rf ./dist && npx tsc",
-    "prettier": "npx prettier -w '**/*.{js,jsx,ts,tsx,json,yml.j2,yml,yaml,.*}'",
-    "lint": "concurrently \"npx prettier --check '**/*.{js,jsx,ts,tsx,json,yml.j2,yml,yaml,.*}'\" \"npx eslint . --max-warnings=0\"",
+    "prebuild": "pnpm del -rf dist",
+    "build": "pnpm tsc",
+    "postbuild": "pnpm del -rf dist/tests",
+    "lint:check": "pnpm biome check .",
+    "lint:lint": "pnpm biome lint .",
+    "lint:prettier": "pnpm biome format .",
+    "lint": "pnpm npm-run-all lint:prettier lint:check lint:lint",
+    "prettier:check": "pnpm biome check --write .",
+    "prettier:format": "pnpm biome format --write .",
+    "prettier:lint": "pnpm biome lint --write .",
+    "prettier": "pnpm npm-run-all prettier:format prettier:check prettier:lint",
+    "slop:arrows": "pnpm convert-to-arrow .",
+    "slop:braces": "pnpm exec sg scan --rule .ast-grep/rules/strip-braces.yml -U .",
+    "slop": "pnpm npm-run-all slop:braces slop:arrows prettier",
     "test": "npx vitest --run"
   },
   "dependencies": {
-    "flatted": "^3.3.1"
+    "flatted": "^3.3.3"
   },
   "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^4.1.0",
-    "@types/node": "^20.3.2",
-    "@typescript-eslint/eslint-plugin": "^6.7.5",
-    "@typescript-eslint/parser": "^6.7.5",
-    "concurrently": "^8.2.0",
-    "eslint": "^8.51.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-import-resolver-node": "^0.3.9",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-vitest": "^0.2.0",
-    "prettier": "^2.8.8",
-    "tsx": "^4.9.3",
-    "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.0.4"
-  },
-  "prettier": {
-    "overrides": [
-      {
-        "files": "*.yml.j2",
-        "options": {
-          "parser": "yaml"
-        }
-      }
-    ]
+    "@ast-grep/cli": "^0.40.5",
+    "@biomejs/biome": "^2.4.3",
+    "@types/node": "^25.3.0",
+    "convert-to-arrow": "^1.0.21",
+    "del-cli": "^7.0.0",
+    "npm-run-all": "^4.1.5",
+    "tsx": "^4.21.0",
+    "turbo": "^2.8.10",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^4.0.18"
   }
 }
