@@ -47,7 +47,7 @@ jobs:
         run: pnpm build
 
       - name: Publish to npm
-        run: npm publish
+        run: pnpm publish
 
       - name: Push to git repo
         run: git push --follow-tags
