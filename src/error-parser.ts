@@ -29,12 +29,10 @@ const toString = (item: unknown): string => {
   return stringified.replace(/^'|'$/g, "");
 };
 
-const toCaught = (item: unknown): CaughtError => {
-  return {
-    message: toString(item),
-    exception: item,
-  };
-};
+const toCaught = (item: unknown): CaughtError => ({
+  message: toString(item),
+  exception: item,
+});
 
 export default toCaught;
 export { CaughtError, toString };
