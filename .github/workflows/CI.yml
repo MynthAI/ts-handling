@@ -24,4 +24,4 @@ jobs:
 
       - run: pnpm install
 
-      - run: turbo ci
+      - run: pnpm turbo ci
